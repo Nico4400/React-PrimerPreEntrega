@@ -1,16 +1,15 @@
 
 import { Badge } from 'antd';
-// import cart from './assets/carritoBlanco.png'
 import { ShoppingCartOutlined } from "@ant-design/icons"
-
 
 
 const CartWidget = () => {
     return (
         <div>
-            <Badge count={5}>
+            <Badge count={4}>
                 <ShoppingCartOutlined style={{ fontSize: '50px',  color: 'white'}} />                         
-            </Badge>           
+            </Badge>   
+            
         </div>
     )
 }
