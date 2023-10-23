@@ -11,32 +11,15 @@ import { Button, Dropdown, Space } from 'antd';
 
 import './styles.css'
 
-const items = [
-  {
-    key: '1',
-    label: (     
-      <NavLink to={'/category/Componentes'} className={({isActive}) => isActive ? 'ActiveOption' : 'Option'}>Componentes</NavLink>      
-    ),
-  },
-  {
-    key: '2',
-    label: (      
-      <NavLink to={'/category/Periféricos'} className={({isActive}) => isActive ? 'ActiveOption' : 'Option'}>Periféricos</NavLink>      
-    ),
-  },
-  {
-    key: '3',
-    label: (      
-      <NavLink to={'/category/Almacenamiento'} className={({isActive}) => isActive ? 'ActiveOption' : 'Option'}>Almacenamiento</NavLink>      
-    ),
-  },
-  {
-    key: '4',
-    label: (      
-      <NavLink to={'/category/Audio'} className={({isActive}) => isActive ? 'ActiveOption' : 'Option'}>Audio</NavLink>      
-    ),
-  },
-]
+const arrayDeCategorias = ['Componentes', 'Periféricos', 'Almacenamiento', 'Audio' ]
+
+const items = arrayDeCategorias.map((categorias, index) => ({
+  key: `${index}`,
+  label: (     
+    <NavLink key={index} to={`/category/${categorias}`} className={({isActive}) => isActive ? 'ActiveOption' : 'Option'} >{categorias}</NavLink>      
+  ),
+}))
+
 
 const NavBar = () => {
   return (
@@ -70,7 +53,10 @@ const NavBar = () => {
         </ul>
 
         <ul className='Personal'>
-          <CartWidget />
+          <Link to='/cart'>
+            <CartWidget />
+          </Link>
+
           <Usuario />
         </ul>
         

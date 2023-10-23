@@ -1,4 +1,6 @@
 
+import carro from '../src/components/ItemDetail'
+
 const productos = [
     {
         id: '1',
@@ -100,7 +102,12 @@ const productos = [
         descripcion: "Auriculares gaming con sonido envolvente y micrófono retráctil.",
         stock: 15,
     },
-];
+]
+
+// const carrito = [{...carro}]
+// console.log(carrito)
+
+const favoritos = []
 
 export const getProductos = () =>{
     return new Promise(( resolve ) => {
@@ -122,6 +129,22 @@ export const getProductoByCategory = (category) =>{
     return new Promise(( resolve ) => {
         setTimeout(() => {
             resolve(productos.filter (prod => prod.categoria === category))
+        }, 200)
+    })
+}
+
+// export const getCarrito = () =>{
+//     return new Promise(( resolve ) => {
+//         setTimeout(() => {
+//             resolve(carrito)
+//         }, 200)
+//     })
+// }
+
+export const getFavoritos = () =>{
+    return new Promise(( resolve ) => {
+        setTimeout(() => {
+            resolve(favoritos)
         }, 200)
     })
 }
