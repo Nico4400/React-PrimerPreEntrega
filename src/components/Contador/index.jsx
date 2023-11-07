@@ -1,6 +1,9 @@
-import { Button } from "antd";
-import { HeartOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
+
+import { Button } from "antd";
+import { HeartOutlined, CheckOutlined } from "@ant-design/icons";
+
+import styles from './styles.module.css'
 
 // Inicio el contador
 const Contador = ({stock, initial, onAdd}) => {
@@ -21,18 +24,18 @@ const Contador = ({stock, initial, onAdd}) => {
     }
         
     return(
-        <div className="Contador">
-            <div className="Controles">
-                <Button className="Boton" onClick={sumar}>+</Button>
-                <p>{contador}</p>
-                <Button className="Boton" onClick={restar}>-</Button>
+        <div className={styles.Contador}>
+            <div className={styles.Controles}>
+                <Button className={styles.Boton} onClick={sumar}>+</Button>
+                <p className={styles.Contador}>{contador}</p>
+                <Button className={styles.Boton} onClick={restar}>-</Button>
             </div>
 
-            <div className="Agregar">
-                <Button className="Boton" onClick={() => onAdd(contador)} disabled={!stock}>Agregar</Button>
+            <div className={styles.Agregar}>
+                <Button type="primary" onClick={() => onAdd(contador)} disabled={!stock}>Agregar <CheckOutlined /></Button>
             </div>
-            <div className="FavBoton">
-                <Button>
+            <div className={styles.FavBoton}>
+                <Button className={styles.Boton}>
                     <HeartOutlined />
                 </Button>
             </div>

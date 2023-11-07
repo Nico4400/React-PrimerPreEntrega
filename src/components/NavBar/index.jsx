@@ -1,17 +1,18 @@
 import React from 'react'
-
 import { Link, NavLink } from 'react-router-dom';
 
 import CartWidget from '../CartWidget'
 import Usuario from '../Usuario';
 import Logo from '../../assets/logoMarron.png'
+import { categorias } from '../../asyncMock';
 
-import { DownOutlined, HeartOutlined, HomeOutlined, UserOutlined, WhatsAppOutlined } from '@ant-design/icons';
+import { DownOutlined, HeartOutlined, HomeOutlined, UserOutlined, WhatsAppOutlined, GiftOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Space } from 'antd';
 
-import './styles.css'
+import styles from './styles.module.css'
 
-const arrayDeCategorias = ['Componentes', 'Periféricos', 'Almacenamiento', 'Audio' ]
+// traigo el array de categorias
+const arrayDeCategorias = categorias
 
 const items = arrayDeCategorias.map((categorias, index) => ({
   key: `${index}`,
@@ -23,19 +24,21 @@ const items = arrayDeCategorias.map((categorias, index) => ({
 
 const NavBar = () => {
   return (
-    <div className="NavBar">
-        <ul className='Logo'>
+    <div className={styles.NavBar}>
+        <ul className={styles.Logo}>
           <Link to='/'>
-            < img src={Logo} width={100} alt="Logo-ecommerce" />
-            <h2>Ecommerce</h2>
+            < img src={Logo} width={100} alt="Logo-ecommerce" />            
           </Link>
         </ul>
 
-        <ul className="secciones">
+        <ul className={styles.secciones}>
           <Link to='/'>
             <Button type="primary">Inicio <HomeOutlined /></Button>
           </Link>
-          <Button type="primary">Favoritos <HeartOutlined /></Button> 
+
+          <NavLink to='/productos'>
+            <Button type="primary">Productos <GiftOutlined /></Button> 
+          </NavLink>
 
           <Dropdown menu={{ items }} trigger={['click']}>
             <a onClick={(e) => e.preventDefault()}>
@@ -47,21 +50,17 @@ const NavBar = () => {
               </Space>
             </a>
           </Dropdown>
-
+          <Button type="primary">Favoritos <HeartOutlined /></Button> 
           <Button type="primary">Usuario <UserOutlined /></Button>
           <Button type="primary">Contacto <WhatsAppOutlined /></Button>            
         </ul>
 
-        <ul className='Personal'>
-          <Link to='/cart'>
-            <CartWidget />
-          </Link>
-
+        <ul className={styles.Personal}>          
+          <CartWidget />  
           <Usuario />
         </ul>
         
     </div>
   )
 }
-
 export default NavBar

@@ -1,13 +1,18 @@
 import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+
 import { getProductos, getProductoByCategory } from '../../asyncMock'
 import ItemList from '../ItemList'
-import { useParams } from 'react-router-dom'
-import './styles.css'
+
+import { Spin } from 'antd';
+
+import styles from './styles.module.css'
 
 
 const ItemListContainer = ({ greating }) => {
     
     const[productos, setProductos] = useState([])
+    const[loading, setLoading] = useState(true)
     const { categoryId } = useParams()
     
     useEffect(() => {
@@ -16,20 +21,30 @@ const ItemListContainer = ({ greating }) => {
 
         asyncFunc(categoryId)
             .then(response => {
-                setProductos(response)                
+                setProductos(response)
+                console.log(categoryId);             
             })
             .catch(error => {
-                console.error(error);
+                console.error(error)
             })
+            .finally(() => setLoading(false))
     }, [categoryId])
     
     return (
-        <div className='titulo'>
-            <h1>
-                {greating}
-            </h1>
-            <ItemList productos={productos} />
-        </div>        
+        <>
+            { loading ? (
+                <div className={styles.Spin}>
+                    <Spin size="large"/>
+                </div>
+                ) : (
+                <div className={styles.Productos}>
+                    <h1>
+                        {greating} - {categoryId}                        
+                    </h1>
+                    <ItemList productos={productos} />                    
+                </div>  
+            )}
+        </>      
     )
 }
 export default ItemListContainer

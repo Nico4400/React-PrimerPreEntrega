@@ -1,15 +1,24 @@
 
-import { Badge } from 'antd';
+import { useContext } from 'react';
+import { Link } from 'react-router-dom';
+
+import { CartContext } from '../../context/cartContext';
+
 import { ShoppingCartOutlined } from "@ant-design/icons"
+import { Badge } from 'antd';
 
 
 const CartWidget = () => {
+    const {cantidadCarrito} = useContext(CartContext)
+
     return (
-        <div>
-            <Badge count={4}>
-                <ShoppingCartOutlined style={{ fontSize: '50px',  color: 'white'}} />                         
-            </Badge>               
-        </div>
+        <Link to='/cart' style={{ display: cantidadCarrito >= 0 ? 'block' : 'none'}}>
+            <div>
+                <Badge count={cantidadCarrito}>
+                    <ShoppingCartOutlined style={{ fontSize: '50px',  color: 'white'}} />                         
+                </Badge>               
+            </div>
+        </Link>
     )
 }
 

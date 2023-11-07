@@ -1,22 +1,10 @@
-import { useEffect, useState } from "react";
-import Cards from "../Cards"
-import { Row, Spin } from 'antd';
-import {getProductos} from '../../asyncMock'
+// import { useEffect, useState } from "react";
+
+import Items from "../Items"
+import { Row } from 'antd';
 
 
 const ItemList = ({productos}) => {
-
-    const[loading, setLoading] = useState(true)
-
-    useEffect(() => {
-        getProductos()
-            .then(response => {
-                setLoading(false)                
-            })
-            .catch(error => {
-                console.error(error);
-            })
-    }, [])
 
     return(
         <div className="ListadoProductos">
@@ -27,16 +15,10 @@ const ItemList = ({productos}) => {
                 md: 24,
                 lg: 32,
                 }}
-            >
-            { loading ? (
-                <div className="Spin">
-                    <Spin />
-                </div>
-            ) : (    
-                <>          
-                    {productos.map(prod => <Cards key={prod.id} {...prod} />)}
-                </>
-            )}
+            >              
+            <>          
+                {productos.map(prod => <Items key={prod.id} {...prod} />)}
+            </>            
             </Row>
         </div>
     )

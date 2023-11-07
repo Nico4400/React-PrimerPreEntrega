@@ -1,6 +1,5 @@
 
-import carro from '../src/components/ItemDetail'
-
+// Agrego los productos
 const productos = [
     {
         id: '1',
@@ -104,10 +103,14 @@ const productos = [
     },
 ]
 
-// const carrito = [{...carro}]
-// console.log(carrito)
+// Agrego array de imagenes para carrusel
+export const imagenesConCategoria = productos
+.filter(producto => producto.imagen !== null)
+.map(prod => ({imagen: prod.imagen, categoria: prod.categoria}))
 
-const favoritos = []
+// Agrego array de categorias
+export const categorias = [...new Set(productos.map(prod => prod.categoria).filter(categoria => categoria !== null))];
+
 
 export const getProductos = () =>{
     return new Promise(( resolve ) => {
@@ -134,17 +137,18 @@ export const getProductoByCategory = (category) =>{
 }
 
 // export const getCarrito = () =>{
+//     const {cart} = useContext(CartContext)
 //     return new Promise(( resolve ) => {
 //         setTimeout(() => {
-//             resolve(carrito)
+//             resolve(cart)
 //         }, 200)
 //     })
 // }
 
-export const getFavoritos = () =>{
-    return new Promise(( resolve ) => {
-        setTimeout(() => {
-            resolve(favoritos)
-        }, 200)
-    })
-}
+// export const getFavoritos = () =>{
+//     return new Promise(( resolve ) => {
+//         setTimeout(() => {
+//             resolve(favoritos)
+//         }, 200)
+//     })
+// }
