@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { getProductos, getProductoByCategory } from '../../asyncMock'
 import ItemList from '../ItemList'
+
+import { db } from '../../services/firebase/client'
+import { getDocs, collection, query, where } from 'firebase/firestore'
 
 import { Spin } from 'antd';
 
@@ -14,23 +16,28 @@ const ItemListContainer = ({ greating }) => {
     const[productos, setProductos] = useState([])
     const[loading, setLoading] = useState(true)
     const { categoryId } = useParams()
-    
-    useEffect(() => {
         
-        const asyncFunc = categoryId ? getProductoByCategory : getProductos
+    useEffect(() => {
 
-        asyncFunc(categoryId)
-            .then(response => {
-                setProductos(response)
-                console.log(categoryId);             
-            })
-            .catch(error => {
-                console.error(error)
-            })
-            .finally(() => setLoading(false))
+        const collectionref = categoryId ?
+            query(collection(db, 'products'), where('categoria', '==', categoryId)) :
+            collection(db , 'products')
+
+            getDocs(collectionref)
+                .then(snapshot => {
+                    const productAdapted = snapshot.docs.map(doc => {
+                        const data = doc.data()
+                        return { id: doc.id, ...data }
+                    })
+                    setProductos(productAdapted)
+                })
+                .catch(error => {
+                    console.error(error)
+                })
+                .finally(() => setLoading(false))
     }, [categoryId])
-    
-    return (
+       
+    return (        
         <>
             { loading ? (
                 <div className={styles.Spin}>

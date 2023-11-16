@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 import Cart from "../Cart";
@@ -11,21 +11,8 @@ import styles from './styles.module.css'
 
 const CartContainer = () => {
 
-    const { cart, limpiarCarrito, setcantidadCarrito } = useContext(CartContext)
-    // const [carrito , setCarrito] = useState([])
-    // const { cart } = useParams()
+    const { cart, limpiarCarrito, setcantidadCarrito, precioTotalCarrito } = useContext(CartContext)
 
-    // useEffect (() => {
-    //     getCarrito(cart)
-    //     cart
-    //     .then(res => {
-    //         setCart(res)
-    //     })
-    //     .catch(err => {
-    //         console.error(err);
-    //     })
-    // },[cart])
-    
     return(
         <div className={styles.Cart}> 
             { cart.length === 0 ?
@@ -38,9 +25,10 @@ const CartContainer = () => {
             </> :       
             <>          
                 {cart.map(prod => <Cart key={prod.id} {...prod} />)}
+                <h2>Monto Total: {precioTotalCarrito}</h2>
                 <div className={styles.Finalizar}>
                     <NavLink to='/productos'><Button type="primary">Productos <GiftOutlined /></Button></NavLink>
-                    <Button type="primary" onClick={() => {}}>Finalizar Compra <CheckOutlined /></Button>
+                    <NavLink to='/checkout'><Button type="primary">Finalizar Compra <CheckOutlined /></Button></NavLink>
                     <Button type="primary" onClick={() => { limpiarCarrito(), setcantidadCarrito(0) }}>Vaciar Carrito <DeleteOutlined /></Button>
                 </div>
             </>

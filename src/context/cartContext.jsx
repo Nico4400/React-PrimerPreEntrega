@@ -1,4 +1,4 @@
-import { createContext, useState } from "react"
+import { createContext, useState, useEffect } from "react"
 
 export const CartContext = createContext({
     cart: []
@@ -8,8 +8,15 @@ const CartComponentContext = ({children}) => {
 
     const [ cart, setCart] = useState([])
     const [ cantidadCarrito, setcantidadCarrito ] = useState(0)
+    const [ precioTotalCarrito, setPrecioTotalCarrito ] = useState(0)
     console.log(cart);  
 
+    useEffect(() => {
+        // Calcular el precio total del carrito cuando cambia el carrito
+        const preciosEnCarrito = cart.map((item) => ((item.precio * item.cantidad).toFixed(2)));
+        const precioTotal = preciosEnCarrito.reduce((total, precio) => total + precio, 0);
+        setPrecioTotalCarrito(precioTotal);
+      }, [cantidadCarrito]);
 
     const sumar = (contador) => {
         setcantidadCarrito(cantidadCarrito + contador)    
@@ -51,10 +58,9 @@ const CartComponentContext = ({children}) => {
     }
 
     return(
-        <CartContext.Provider value={{ cart, setCart, cantidadCarrito, setcantidadCarrito, sumar, restar, agregarItem, estaEnCarrito, actualizarCarrito, indexCarrito, eliminarItem, limpiarCarrito }}>
+        <CartContext.Provider value={{ cart, setCart, cantidadCarrito, setcantidadCarrito, sumar, restar, agregarItem, estaEnCarrito, actualizarCarrito, indexCarrito, eliminarItem, limpiarCarrito, precioTotalCarrito }}>
             {children}
         </CartContext.Provider>
     )
 }
-
 export default CartComponentContext

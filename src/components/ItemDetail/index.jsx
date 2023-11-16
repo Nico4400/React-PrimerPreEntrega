@@ -13,15 +13,7 @@ const { Meta } = Card;
 const ItemDetail = ({id, producto, imagen, precio, stock, categoria, marca, descripcion}) => {
 
   const {cantidadCarrito, sumar, agregarItem, estaEnCarrito, cart, indexCarrito, actualizarCarrito } = useContext(CartContext)
-  
-  // const [carro, setCarro] = useState([])
-  // const agregarAlCarro = () => {
-  //   setCarro([...carro, {id, producto, imagen, precio, stock, categoria, marca, descripcion}])
-  // }
-
-  // useEffect (() => {    
-  //   console.log(carro)
-  // },[carro])
+ 
 
   return (
     <Card className={styles.Card}
@@ -34,20 +26,20 @@ const ItemDetail = ({id, producto, imagen, precio, stock, categoria, marca, desc
       }
       actions={[
           <Contador className={styles.Contador} initial={1} stock={stock} onAdd={(contador) => {
-            console.log(`Cantidad agregada ${contador}`)
+            console.log(`Cantidad agregada ${contador}`)       
 
             { !estaEnCarrito(id) ?
               ( sumar(contador),
-              agregarItem({id, producto, imagen, precio, stock, categoria, marca, descripcion}, contador),
-              console.log(cantidadCarrito) ) : 
+              agregarItem({id, producto, imagen, precio, stock, categoria, marca, descripcion}, contador)              
+              ) : 
               console.log(cantidadCarrito) 
             }
             
             const index = indexCarrito(id)
             if (index !== -1 && cart[index] && cart[index].cantidad !== undefined) {
-              
+                            
               const cantidad = cart[index].cantidad
-              const nuevaCantidad = cantidad + contador              
+              const nuevaCantidad = cantidad + contador          
 
               { (stock - nuevaCantidad) >= 0 ?
                 ( sumar(contador),

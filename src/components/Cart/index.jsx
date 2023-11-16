@@ -15,6 +15,7 @@ const Cart = ({id, producto, imagen, precio, stock, categoria, marca, descripcio
 
   const { actualizarCarrito, eliminarItem, restar, sumar } = useContext(CartContext)
 
+
   return(
     <Card className={styles.Card}
       
@@ -32,7 +33,8 @@ const Cart = ({id, producto, imagen, precio, stock, categoria, marca, descripcio
             const nuevaCantidad = cantidad + contador
             { (stock - nuevaCantidad) >= 0 ?
                (sumar(contador),
-                actualizarCarrito({id, producto, imagen, precio, stock, categoria, marca, descripcion, cantidad}, nuevaCantidad)) :
+                actualizarCarrito({id, producto, imagen, precio, stock, categoria, marca, descripcion, cantidad}, nuevaCantidad)
+                ) :
                 console.log(`No hay cantidades suficientes, quedan ${stock - cantidad}`) }
           }}/>,
           <Button className={styles.Boton} type="primary" onClick={() => { eliminarItem(id), restar(cantidad) }}>Eliminar Item <CloseCircleOutlined /></Button>
@@ -45,7 +47,7 @@ const Cart = ({id, producto, imagen, precio, stock, categoria, marca, descripcio
       </Link>
       <p className={styles.Stock}>Stock: {stock || "No Disponible"}</p>
       <p className={styles.Cantidad}>Cantidad: {cantidad || "No Disponible"}</p>
-      <p className={styles.Precio}>$ {((precio*cantidad).toFixed(2)) || "No Disponible"}</p>      
+      <p className={styles.Precio}>$ {((precio*cantidad).toFixed(2)) || "No Disponible"}</p>            
     </Card>   
   )
 } 

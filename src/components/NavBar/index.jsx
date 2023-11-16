@@ -1,28 +1,31 @@
 import React from 'react'
+import { useContext } from 'react'
 import { Link, NavLink } from 'react-router-dom';
 
 import CartWidget from '../CartWidget'
 import Usuario from '../Usuario';
 import Logo from '../../assets/logoMarron.png'
-import { categorias } from '../../asyncMock';
 
-import { DownOutlined, HeartOutlined, HomeOutlined, UserOutlined, WhatsAppOutlined, GiftOutlined } from '@ant-design/icons';
+import { CategoriasContext } from '../../context/categoryContext';
+
 import { Button, Dropdown, Space } from 'antd';
+import { DownOutlined, HeartOutlined, HomeOutlined, UserOutlined, WhatsAppOutlined, GiftOutlined } from '@ant-design/icons';
 
 import styles from './styles.module.css'
 
-// traigo el array de categorias
-const arrayDeCategorias = categorias
-
-const items = arrayDeCategorias.map((categorias, index) => ({
-  key: `${index}`,
-  label: (     
-    <NavLink key={index} to={`/category/${categorias}`} className={({isActive}) => isActive ? 'ActiveOption' : 'Option'} >{categorias}</NavLink>      
-  ),
-}))
-
-
 const NavBar = () => {
+
+  const { categorias } = useContext(CategoriasContext)
+
+  // traigo el array de categorias
+  const arrayDeCategorias = categorias
+  const items = arrayDeCategorias.map((categorias, index) => ({
+    key: `${index}`,
+    label: (     
+      <NavLink key={index} to={`/category/${categorias}`} className={({isActive}) => isActive ? 'ActiveOption' : 'Option'} >{categorias}</NavLink>      
+    ),
+  }))
+
   return (
     <div className={styles.NavBar}>
         <ul className={styles.Logo}>
