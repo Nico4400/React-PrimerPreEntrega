@@ -13,7 +13,7 @@ const CartComponentContext = ({children}) => {
 
     useEffect(() => {
         // Calcular el precio total del carrito cuando cambia el carrito
-        const preciosEnCarrito = cart.map((item) => ((item.precio * item.cantidad).toFixed(2)));
+        const preciosEnCarrito = cart.map((item) => item.precio * item.cantidad);
         const precioTotal = preciosEnCarrito.reduce((total, precio) => total + precio, 0);
         setPrecioTotalCarrito(precioTotal);
       }, [cantidadCarrito]);
